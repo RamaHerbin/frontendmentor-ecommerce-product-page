@@ -1,5 +1,5 @@
 <template>
-	<div class="header">
+	<header class="header">
 		<div class="wrapper">
 			<div class="left">
 				<img
@@ -25,7 +25,7 @@
 				<img class="userPic" src="../assets/image-avatar.png" alt="" />
 			</div>
 		</div>
-	</div>
+	</header>
 </template>
 
 <script>
