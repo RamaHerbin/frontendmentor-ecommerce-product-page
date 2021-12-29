@@ -185,7 +185,7 @@ export default {
 }
 
 .cart-section .counter .increment {
-  display: inline-block;
+  display: npblock;
   height: 100%;
   cursor: pointer;
 }
@@ -221,5 +221,41 @@ export default {
 
 .cart-add span {
   margin-left: 0.75rem;
+  user-select: none;
+}
+
+
+
+@media only screen and (min-width: 850px) {
+  .product {
+    margin-top: 4rem;
+  }
+
+  .wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+
+  .details,
+  .preview {
+    max-width: 460px;
+  }
+
+
+  .preview-main #preview {
+    border-radius: 0.75rem;
+  }
+
+  .price {
+    flex-direction: column;
+    align-items: inherit;
+  }
+
+  .cart-section {
+  flex-direction: row;
+}
 }
 </style>
