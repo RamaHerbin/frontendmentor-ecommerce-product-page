@@ -54,6 +54,7 @@ export default {
 
 .wrapper .header-links {
 	display: none;
+	color: hsl(219, 9%, 45%);
 }
 
 .wrapper > div {

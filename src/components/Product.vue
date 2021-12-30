@@ -17,7 +17,20 @@
             </div>
           </div>
         </div>
-        <div class="preview-selection"></div>
+        <div class="preview-selection">
+          <div class="preview-image-1 active">
+            <img src="../assets/image-product-1-thumbnail.jpg" alt="Image product 1">
+          </div>
+          <div class="preview-image-2">
+            <img src="../assets/image-product-2-thumbnail.jpg" alt="Image product 2">
+          </div>
+          <div class="preview-image-3">
+            <img src="../assets/image-product-3-thumbnail.jpg" alt="Image product 3">
+          </div>
+          <div class="preview-image-4">
+            <img src="../assets/image-product-4-thumbnail.jpg" alt="Image product 4">
+          </div>
+        </div>
       </section>
       <section class="details">
         <div class="presentation">
@@ -82,6 +95,10 @@ export default {
   justify-content: center;
   align-items: center;
 }
+
+.preview-selection {
+    display: none;
+  }
 
 .preview-main #preview {
   max-width: 100%;
@@ -224,9 +241,8 @@ export default {
   user-select: none;
 }
 
-
-
 @media only screen and (min-width: 850px) {
+
   .product {
     margin-top: 4rem;
   }
@@ -244,6 +260,39 @@ export default {
     max-width: 460px;
   }
 
+  .preview .preview-selection {
+    margin-top: 2rem;
+    display: flex;
+    justify-content: space-evenly;
+  }
+
+  .preview .preview-selection > div {
+    border-radius: .75rem;
+    cursor: pointer;
+    display: flex;
+    overflow: hidden;
+  }
+
+  .preview .preview-selection > div.active {
+    border: solid 3px #e7833b;
+  }
+
+    .preview .preview-selection > div.active img {
+    opacity: .5;
+  }
+
+  .preview .preview-selection > div:not(:first-child) {
+    margin-left: 1.5rem;
+  } 
+
+  .preview .preview-selection > div img {
+    max-width: 100%;
+    /* border-radius: .75rem; */
+  }
+
+  .preview-main .preview-mobile-selection {
+    display: none;
+  }
 
   .preview-main #preview {
     border-radius: 0.75rem;
@@ -255,7 +304,7 @@ export default {
   }
 
   .cart-section {
-  flex-direction: row;
-}
+    flex-direction: row;
+  }
 }
 </style>
