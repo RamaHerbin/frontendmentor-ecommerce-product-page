@@ -18,22 +18,29 @@
 			</div>
 
 			<div class="right">
-				<div class="cart-wrapper">
+				<div class="cart-wrapper" @click="$refs.modalCart.openModal()">
 					<img id="cartIcon" src="../assets/icon-cart.svg" alt="Cart icon" />
 					<div class="nb-cartItem">3</div>
 				</div>
 				<img class="userPic" src="../assets/image-avatar.png" alt="" />
+			<CartModal ref="modalCart"/>
+
 			</div>
 		</div>
 	</header>
 </template>
 
 <script>
+import CartModal from './CartModal.vue';
+
 export default {
 	name: 'Header',
+	components: {
+		CartModal
+	},
 	mounted: () => {
 		console.log(document.querySelectorAll('.wrapper > div'));
-	},
+	}
 };
 </script>
 
