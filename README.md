@@ -1,5 +1,9 @@
 # ecommerce-product-page-challenge
 
+Challenger : Rama Herbin
+
+Demo : [here](https://frontendmentor-ecommerce-product-page-peach.vercel.app/#/) 
+
 ## Project setup
 ```
 npm install
