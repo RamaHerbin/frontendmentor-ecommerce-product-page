@@ -18,12 +18,12 @@
 			</div>
 
 			<div class="right">
-				<div class="cart-wrapper" @click="$refs.modalCart.openModal()">
+				<div class="cart-wrapper" @click="test">
 					<img id="cartIcon" src="../assets/icon-cart.svg" alt="Cart icon" />
 					<div class="nb-cartItem">3</div>
 				</div>
 				<img class="userPic" src="../assets/image-avatar.png" alt="" />
-			<CartModal ref="modalCart"/>
+				<CartModal ref="modalCart"/>
 
 			</div>
 		</div>
@@ -40,6 +40,12 @@ export default {
 	},
 	mounted: () => {
 		console.log(document.querySelectorAll('.wrapper > div'));
+	},
+	methods: {
+		test() {
+			console.log(this.$refs.modalCart.show)
+			this.$refs.modalCart.show ? this.$refs.modalCart.closeModal() : this.$refs.modalCart.openModal()
+		}
 	}
 };
 </script>
@@ -72,6 +78,7 @@ export default {
 .cart-wrapper {
 	display: flex;
 	justify-content: center;
+	cursor: pointer;
 }
 
 .right {

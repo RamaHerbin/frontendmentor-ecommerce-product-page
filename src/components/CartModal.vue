@@ -1,13 +1,17 @@
 <template>
-  <div class="cart-modal" v-if="show" role="dialog" aria-labelledby="modalTitle">
-    <section class="cartHeader">Cart</section>
-    <section class="cartContent">
-      <p>Your cart is empty</p>
-    </section>
-  </div>
+  <transition v-on:enter="enter" v-on:leave="leave">
+    <div class="cart-modal" v-if="show" role="dialog" aria-labelledby="modalTitle">
+      <section class="cartHeader">Cart</section>
+      <section class="cartContent">
+        <p>Your cart is empty</p>
+      </section>
+    </div>
+  </transition>
 </template>
 
 <script>
+import { gsap } from "../assets/gsap/all.js";
+
 export default {
   name: "CartModal",
   data() {
@@ -15,16 +19,24 @@ export default {
           show: false
       };
   },
-  mounted: () => {},
+  mounted: () => {
+
+  },
   methods: {
     closeModal() {
       this.show = false;
-    //   document.querySelector("body").classList.remove("overflow-hidden");
     },
     openModal() {
       this.show = true;
-    //   document.querySelector("body").classList.add("overflow-hidden");
     },
+    enter: function(el, done) {
+      console.log('enter');
+      gsap.from(el, {duration: .5, autoAlpha: 0, scale: 0.8, ease: 'power4.inOut', onComplete: done});
+    },
+    leave: function(el, done) {
+      gsap.to(el, {duration: .3, autoAlpha: 0, scale: 0.8, ease: 'power4.inOut', onComplete: done});
+
+    } 
   },
 };
 </script>
@@ -33,10 +45,16 @@ export default {
 
 .cart-modal {
     box-shadow: 0px 10px 49px 26px rgba(0,0,0,0.1);
-    position: relative;
-    left: -200px;
-    top: 100px;
-    max-width: 360px;
+    background-color: #ffffff;
+    border-radius: 5px;
+    position: absolute;
+    top: calc(2.5vw + 66px);
+    left: 2.5vw;
+    width: 95vw;
+    /* position: relative; */
+    /* left: -200px; */
+    /* top: 100px; */
+    /* max-width: 360px; */
 }
 
 .cart-modal section {

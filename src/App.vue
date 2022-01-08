@@ -4,6 +4,8 @@
 </template>
 
 <script>
+import { gsap } from "./assets/gsap/all.js";
+// import DrawSVGPlugin from "./assets/gsap/DrawSVGPlugin.js";
 import Header from "@/components/Header";
 import Product from "@/components/Product";
 
@@ -12,6 +14,10 @@ export default {
   components: {
     Header,
     Product
+  },
+  mounted() {
+    // gsap.registerPlugin(DrawSVGPlugin);
+
   }
 };
 </script>
