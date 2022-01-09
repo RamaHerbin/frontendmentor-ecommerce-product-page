@@ -241,7 +241,7 @@ export default {
   user-select: none;
 }
 
-@media only screen and (min-width: 850px) {
+@media only screen and (min-width: 750px) {
 
   .product {
     margin-top: 4rem;
