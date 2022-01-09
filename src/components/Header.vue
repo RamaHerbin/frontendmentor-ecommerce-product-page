@@ -1,6 +1,6 @@
 <template>
   <header class="header">
-	<Menu ref="modalMenu"/>
+    <Menu ref="modalMenu" />
     <div class="wrapper">
       <div class="left">
         <img id="burger-menu" @click="menuModalHandler" src="../assets/icon-menu.svg" alt="Burger menu icon" />
@@ -20,7 +20,7 @@
             <img id="cartIcon" src="../assets/icon-cart.svg" alt="Cart icon" />
             <div class="nb-cartItem">3</div>
           </div>
-	      <CartModal ref="modalCart" />
+          <CartModal ref="modalCart" />
         </div>
 
         <img class="userPic" src="../assets/image-avatar.png" alt="" />
@@ -31,13 +31,13 @@
 
 <script>
 import CartModal from "./CartModal.vue";
-import Menu from "./Menu.vue"
+import Menu from "./Menu.vue";
 
 export default {
   name: "Header",
   components: {
     CartModal,
-	Menu
+    Menu,
   },
   mounted: () => {
     console.log(document.querySelectorAll(".wrapper > div"));
@@ -46,22 +46,21 @@ export default {
     cartModalHandler() {
       this.$refs.modalCart.show ? this.$refs.modalCart.closeModal() : this.$refs.modalCart.openModal();
     },
-	menuModalHandler() {
-		console.log('this.$refs.modalMenu.show :>> ', this.$refs.modalMenu.show);
-	  this.$refs.modalMenu.show ? this.$refs.modalMenu.closeModal() : this.$refs.modalMenu.openModal();
-	}
+    menuModalHandler() {
+      console.log("this.$refs.modalMenu.show :>> ", this.$refs.modalMenu.show);
+      this.$refs.modalMenu.show ? this.$refs.modalMenu.closeModal() : this.$refs.modalMenu.openModal();
+    },
   },
 };
 </script>
 
 <style scoped>
 .header {
-	background: #fff;
-	position: sticky;
-	top: 0;
-	z-index: 100;
+  background: #fff;
+  position: sticky;
+  top: 0;
+  z-index: 100;
 }
-
 
 .wrapper {
   display: flex;
@@ -107,10 +106,9 @@ export default {
 }
 
 @media only screen and (min-width: 650px) {
-.cart {
-	position: relative;
-}
-
+  .cart {
+    position: relative;
+  }
 }
 
 @media only screen and (min-width: 850px) {
@@ -121,7 +119,6 @@ export default {
     margin: 0 auto;
     height: auto;
   }
-
 
   .header .wrapper #burger-menu {
     display: none;
