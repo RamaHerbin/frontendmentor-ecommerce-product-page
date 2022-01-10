@@ -1,14 +1,18 @@
 <template>
-  <transition  name="slide">
-    <aside v-show="show" id="aside-menu">
-      <div ref="links" class="aside-wrapper">
-        <a href="#"><div>Collections</div></a>
-        <a href="#"><div>Men</div></a>
-        <a href="#"><div>Women</div></a>
-        <a href="#"><div>About</div></a>
-        <a href="#"><div>Contact</div></a>
-      </div>
-    </aside>
+  <transition name="opacity">
+    <section @click="closeModal" v-show="show" id="bg-dark">
+      <transition name="slide">
+        <aside v-show="show" id="aside-menu">
+          <div ref="links" class="aside-wrapper">
+            <a href="#"><div>Collections</div></a>
+            <a href="#"><div>Men</div></a>
+            <a href="#"><div>Women</div></a>
+            <a href="#"><div>About</div></a>
+            <a href="#"><div>Contact</div></a>
+          </div>
+        </aside>
+      </transition>
+    </section>
   </transition>
 </template>
 
@@ -22,29 +26,37 @@ export default {
       show: false,
     };
   },
-  mounted: () => {
-  },
+  mounted: () => {},
   methods: {
     closeModal() {
       this.show = false;
     },
     openModal() {
       this.show = true;
-      this.test()
+      this.test();
       this.linksAnim();
     },
     test() {
-      console.log('this.$refs.test :>> ', this.$refs.links.querySelectorAll('.aside-wrapper a span'));
-
+      console.log("this.$refs.test :>> ", this.$refs.links.querySelectorAll(".aside-wrapper a span"));
     },
     linksAnim() {
-      gsap.from(this.$refs.links.querySelectorAll('.aside-wrapper a div'), {duration: .8, y: '20px', ease:'power4.inOut', immediateRender: true});
-    }
+      gsap.from(this.$refs.links.querySelectorAll(".aside-wrapper a div"), { duration: 0.8, y: "20px", ease: "power4.inOut", immediateRender: true });
+    },
   },
 };
 </script>
 
 <style scoped>
+#bg-dark {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.495);
+  z-index: 100;
+}
+
 #aside-menu {
   position: fixed;
   left: 0;
@@ -59,17 +71,25 @@ export default {
 .slide-leave-active {
   transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
 }
-
 .slide-enter-from,
 .slide-leave-to {
   transform: translateX(-100%);
 }
+
+.opacity-enter-active,
+.opacity-leave-active {
+  transition: opacity .25s ease-in-out;
+}
+.opacity-enter-from,
+.opacity-leave-to {
+  opacity: 0;
+}
+
 .aside-wrapper {
   padding: 2.5rem;
   display: flex;
   justify-content: center;
   flex-direction: column;
-
 }
 .aside-wrapper a {
   margin-top: 2rem;

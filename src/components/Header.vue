@@ -90,6 +90,7 @@ export default {
   display: flex;
   justify-content: center;
   cursor: pointer;
+  position: relative;
 }
 
 .right {
@@ -103,6 +104,15 @@ export default {
 
 .cart-wrapper .nb-cartItem {
   position: absolute;
+  top: -5px;
+  left: 10px;
+  color: #fff;
+  background-color: hsl(26, 100%, 55%);
+  border-radius: 45%;
+  font-size: .7rem;
+  font-weight: bold;
+  text-align: center;
+  width: 20px;
 }
 
 @media only screen and (min-width: 650px) {

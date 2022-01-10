@@ -28,7 +28,6 @@ export default {
       this.show = true;
     },
     enter: function (el, done) {
-      console.log("enter");
       gsap.from(el, { duration: 0.5, autoAlpha: 0, scale: 0.8, ease: "power4.inOut", onComplete: () => gsap.set(el, { clearProps: "all" }) });
     },
     leave: function (el, done) {
