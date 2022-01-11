@@ -39,9 +39,10 @@ export default {
 
 <style scoped>
 .cart-modal {
-  box-shadow: 0px 10px 49px 26px rgba(0, 0, 0, 0.1);
+box-shadow: 0px 25px 21px -3px rgba(0,0,0,0.1);
+
   background-color: #ffffff;
-  border-radius: 5px;
+  border-radius: 8px;
   position: absolute;
   top: calc(2.5vw + 66px);
   left: 2.5vw;
@@ -59,6 +60,7 @@ export default {
 
 .cartContent p {
   padding: 1rem;
+  height: 150px;
 }
 
 @media only screen and (min-width: 650px) {
