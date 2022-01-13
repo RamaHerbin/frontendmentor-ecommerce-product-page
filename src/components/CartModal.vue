@@ -55,7 +55,7 @@ box-shadow: 0px 25px 21px -3px rgba(0,0,0,0.1);
 }
 
 .cartHeader {
-  border-bottom: solid 1px rgb(176, 176, 176);
+  border-bottom: solid 1px rgba(176, 176, 176, 0.5);
 }
 
 .cartContent p {

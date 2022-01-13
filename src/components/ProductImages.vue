@@ -1,14 +1,20 @@
 <template>
 <section class="preview">
         <div class="preview-main">
-          <img src="../assets/image-product-1.jpg" alt="Image product" id="preview" />
+          <div ref="productImagesSlider" class="container-product-images">
+            <img src="../assets/image-product-1.jpg" alt="Image product" class="product-images" />
+            <img src="../assets/image-product-2.jpg" alt="Image product" class="product-images" />
+            <img src="../assets/image-product-3.jpg" alt="Image product" class="product-images" />
+            <img src="../assets/image-product-4.jpg" alt="Image product" class="product-images" />
+
+          </div>
           <div class="preview-mobile-selection">
-            <div class="rounded-button">
+            <div @click="right" class="rounded-button">
               <svg width="12" height="18" xmlns="http://www.w3.org/2000/svg">
                 <path d="M11 1 3 9l8 8" stroke="#1D2026" stroke-width="3" fill="none" fill-rule="evenodd" />
               </svg>
             </div>
-            <div class="rounded-button">
+            <div @click="left" class="rounded-button">
               <svg width="13" height="18" xmlns="http://www.w3.org/2000/svg">
                 <path d="m2 1 8 8-8 8" stroke="#1D2026" stroke-width="3" fill="none" fill-rule="evenodd" />
               </svg>
@@ -33,7 +39,11 @@
 </template>
 
 <script>
-// import { gsap } from "../assets/gsap/all.js";
+import { gsap } from "../assets/gsap/all.js";
+import Draggable from "../assets/gsap/Draggable.js";
+import InertiaPlugin from "../assets/gsap/InertiaPlugin.js";
+
+gsap.registerPlugin(Draggable, InertiaPlugin);
 
 export default {
   name: "ProductImages",
@@ -42,9 +52,32 @@ export default {
       show: false,
     };
   },
-  mounted: () => {},
-  methods: {
+  mounted: () => {
 
+  let draggableSlider = Draggable.create(".container-product-images", {
+    type:"x",
+    // bounds: document.getElementById("container"),
+    zIndexBoost: false,
+    inertia: true,
+    throwProps:true,
+    onClick:function() {
+      console.log("clicked");
+    },
+    onDragEnd:function() {
+      console.log("drag ended");
+    }
+  });
+
+  },
+  methods: {
+    left() {
+      console.log('click')
+      gsap.to(this.$refs.productImagesSlider, {duration: .6, x: '-=100%', ease:'power4.inOut'})
+    },
+    right() {
+      gsap.to(this.$refs.productImagesSlider, {duration: .6, x: '+=100%', ease:'power4.inOut'})
+
+    }
    
   },
 };
@@ -62,8 +95,15 @@ export default {
   display: none;
 }
 
-.preview-main #preview {
+.preview-main .container-product-images {
+  display: flex;
+  /*overflow: hidden;*/
+  width: 100%;
+}
+
+.preview-main .product-images {
   max-width: 100%;
+  height: 100%;
 }
 
 .preview-main .preview-mobile-selection {

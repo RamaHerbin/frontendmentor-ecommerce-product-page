@@ -23,9 +23,6 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-
-
-
 @media only screen and (min-width: 750px) {
 
   .product {
