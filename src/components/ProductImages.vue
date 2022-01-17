@@ -8,12 +8,12 @@
         <img src="../assets/image-product-4.jpg" alt="Image product" class="product-images" />
       </div>
       <div class="preview-mobile-selection">
-        <div @click="right" class="rounded-button">
+        <div @click="left" class="rounded-button">
           <svg width="12" height="18" xmlns="http://www.w3.org/2000/svg">
             <path d="M11 1 3 9l8 8" stroke="#1D2026" stroke-width="3" fill="none" fill-rule="evenodd" />
           </svg>
         </div>
-        <div @click="left" class="rounded-button">
+        <div @click="right" class="rounded-button">
           <svg width="13" height="18" xmlns="http://www.w3.org/2000/svg">
             <path d="m2 1 8 8-8 8" stroke="#1D2026" stroke-width="3" fill="none" fill-rule="evenodd" />
           </svg>
@@ -49,14 +49,14 @@ export default {
   data() {
     return {
       show: false,
+      sliderIndex: 0,
     };
   },
   mounted() {
     document.onreadystatechange = () => {
       if (document.readyState == "complete") {
-        
-        let slideWidth = document.querySelector('.product-images').offsetWidth
-        console.log('slideWidth :>> ', slideWidth);
+        let slideWidth = document.querySelector(".product-images").offsetWidth;
+        console.log("slideWidth :>> ", slideWidth);
         let draggableSlider = Draggable.create(".container-product-images", {
           type: "x",
           zIndexBoost: false,
@@ -76,12 +76,42 @@ export default {
     };
   },
   methods: {
-    left() {
-      console.log("click");
-      gsap.to(this.$refs.productImagesSlider, { duration: 0.6, x: "-=100%", ease: "power4.inOut" });
+    right(e) {
+      console.log("right");
+
+      this.sliderIndex++;
+      console.log("this.sliderIndex :>> ", this.sliderIndex);
+      let tlRight = gsap.timeline();
+      tlRight
+        .set(e.target, { pointerEvents: "none" })
+        .to(this.$refs.productImagesSlider, { duration: 0.6, x: "-=100%", ease: "power4.inOut" })
+        .set(e.target, { pointerEvents: "all" });
+
+      if (this.sliderIndex >= 3) {
+        tlRight.to(e.target, { duration: 0.6, autoAlpha: 0, pointerEvents: "none", ease: "power4.inOut" });
+      } 
     },
-    right() {
-      gsap.to(this.$refs.productImagesSlider, { duration: 0.6, x: "+=100%", ease: "power4.inOut" });
+    left(e) {
+      console.log("left");
+
+      this.sliderIndex--;
+      console.log("this.sliderIndex :>> ", this.sliderIndex);
+      let tlLeft = gsap.timeline();
+      tlLeft
+        .set(e.target, { pointerEvents: "none" })
+        .to(this.$refs.productImagesSlider, { duration: 0.6, x: "+=100%", ease: "power4.inOut" })
+        .set(e.target, { pointerEvents: "all" });
+
+      if (this.sliderIndex <= 0) {
+        tlLeft.to(e.target, { duration: 0.6, autoAlpha: 0, pointerEvents: "none", ease: "power4.inOut" });
+      } else {
+        tlLeft.to(e.target, { duration: 0.6, autoAlpha: 1, pointerEvents: "all", ease: "power4.inOut" });
+
+      }
+
+      if (this.sliderIndex <= 3) {
+        tlLeft.to(e.target, { duration: 0.6, autoAlpha: 1, pointerEvents: "all", ease: "power4.inOut" });
+      }
     },
   },
 };
@@ -128,6 +158,10 @@ export default {
   margin: 1rem;
   cursor: pointer;
   /* position: absolute; */
+}
+
+.preview-main .preview-mobile-selection .rounded-button svg {
+  pointer-events: none;
 }
 
 .preview-main .preview-mobile-selection .rounded-button:first-child svg {
