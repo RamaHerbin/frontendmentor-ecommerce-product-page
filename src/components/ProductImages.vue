@@ -8,12 +8,12 @@
         <img src="../assets/image-product-4.jpg" alt="Image product" class="product-images" />
       </div>
       <div class="preview-mobile-selection">
-        <div @click="left" class="rounded-button">
+        <div @click="left" ref="leftArrow" class="rounded-button">
           <svg width="12" height="18" xmlns="http://www.w3.org/2000/svg">
             <path d="M11 1 3 9l8 8" stroke="#1D2026" stroke-width="3" fill="none" fill-rule="evenodd" />
           </svg>
         </div>
-        <div @click="right" class="rounded-button">
+        <div @click="right" ref="rightArrow" class="rounded-button">
           <svg width="13" height="18" xmlns="http://www.w3.org/2000/svg">
             <path d="m2 1 8 8-8 8" stroke="#1D2026" stroke-width="3" fill="none" fill-rule="evenodd" />
           </svg>
@@ -55,21 +55,26 @@ export default {
   mounted() {
     document.onreadystatechange = () => {
       if (document.readyState == "complete") {
-        let slideWidth = document.querySelector(".product-images").offsetWidth;
-        console.log("slideWidth :>> ", slideWidth);
+        const self = this;
+        let imagesSlider = document.querySelectorAll(".product-images");
+        let slideWidth = imagesSlider[0].offsetWidth;
+        let totalSliderWidth = document.querySelector(".container-product-images").scrollWidth;
+        let xMaxBounds = -(totalSliderWidth - slideWidth);
+        gsap.set(self.$refs.leftArrow, { autoAlpha: 0, pointerEvents: "none", ease: "power2.inOut" });
+
         let draggableSlider = Draggable.create(".container-product-images", {
           type: "x",
           zIndexBoost: false,
+          bounds: { minX: 0, maxX: xMaxBounds },
           inertia: true,
           snap: {
             x: gsap.utils.snap(slideWidth),
           },
           throwProps: true,
-          onClick: function () {
-            console.log("clicked");
-          },
-          onDragEnd: function () {
-            console.log("drag ended");
+          onThrowComplete: function (e) {
+            if (this.x === 0) gsap.to(self.$refs.leftArrow, { duration: 0.6, autoAlpha: 0, pointerEvents: "none", ease: "power2.inOut" });
+            else if (this.x === xMaxBounds) gsap.to(self.$refs.rightArrow, { duration: 0.6, autoAlpha: 0, pointerEvents: "none", ease: "power2.inOut" });
+            else gsap.to([self.$refs.rightArrow, self.$refs.leftArrow], { duration: 0.6, autoAlpha: 1, pointerEvents: "all", ease: "power4.inOut" });
           },
         });
       }
@@ -89,7 +94,10 @@ export default {
 
       if (this.sliderIndex >= 3) {
         tlRight.to(e.target, { duration: 0.6, autoAlpha: 0, pointerEvents: "none", ease: "power4.inOut" });
-      } 
+      }
+      if (this.sliderIndex !== 0) {
+        tlRight.to(this.$refs.leftArrow, { duration: 0.6, autoAlpha: 1, pointerEvents: "all", ease: "power4.inOut" });
+      }
     },
     left(e) {
       console.log("left");
@@ -104,13 +112,10 @@ export default {
 
       if (this.sliderIndex <= 0) {
         tlLeft.to(e.target, { duration: 0.6, autoAlpha: 0, pointerEvents: "none", ease: "power4.inOut" });
-      } else {
-        tlLeft.to(e.target, { duration: 0.6, autoAlpha: 1, pointerEvents: "all", ease: "power4.inOut" });
-
       }
 
-      if (this.sliderIndex <= 3) {
-        tlLeft.to(e.target, { duration: 0.6, autoAlpha: 1, pointerEvents: "all", ease: "power4.inOut" });
+      if (this.sliderIndex !== 3) {
+        tlLeft.to(this.$refs.rightArrow, { duration: 0.6, autoAlpha: 1, pointerEvents: "all", ease: "power4.inOut" });
       }
     },
   },
