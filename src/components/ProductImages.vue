@@ -21,17 +21,8 @@
       </div>
     </div>
     <div class="preview-selection">
-      <div class="preview-image-1 active">
-        <img src="../assets/image-product-1-thumbnail.jpg" alt="Image product 1" />
-      </div>
-      <div class="preview-image-2">
-        <img src="../assets/image-product-2-thumbnail.jpg" alt="Image product 2" />
-      </div>
-      <div class="preview-image-3">
-        <img src="../assets/image-product-3-thumbnail.jpg" alt="Image product 3" />
-      </div>
-      <div class="preview-image-4">
-        <img src="../assets/image-product-4-thumbnail.jpg" alt="Image product 4" />
+      <div v-for="(listImages, index) in listImages" v-bind:key="index" @click="switchImage(index+1)" :class="[`preview-image-${index+1}`, currentImage === `preview-image-${index+1}` ? 'active': '']">
+        <img :src="getImages(this.listImages[index])" alt="Image product 1" />
       </div>
     </div>
   </section>
@@ -50,9 +41,18 @@ export default {
     return {
       show: false,
       sliderIndex: 0,
+      listImages: [
+        'image-product-1-thumbnail.jpg',
+        'image-product-2-thumbnail.jpg',
+        'image-product-3-thumbnail.jpg',
+        'image-product-4-thumbnail.jpg'
+      ],
+      currentImage : 'preview-image-1'
     };
   },
   mounted() {
+    console.log('this.listImages[0] :>> ', this.listImages[0]);
+
     document.onreadystatechange = () => {
       if (document.readyState == "complete") {
         const self = this;
@@ -81,9 +81,15 @@ export default {
     };
   },
   methods: {
-    right(e) {
-      console.log("right");
+    getImages: function (img) {
+      return require(`../assets/${img}`)
 
+    },
+    switchImage: function (id) {
+      this.currentImage = `preview-image-${id}`;
+      gsap.to(this.$refs.productImagesSlider, { duration: 0.6, x: `${-(id-1) * 100}%`, ease: "power4.inOut" })
+    },
+    right(e) {
       this.sliderIndex++;
       console.log("this.sliderIndex :>> ", this.sliderIndex);
       let tlRight = gsap.timeline();
@@ -100,8 +106,6 @@ export default {
       }
     },
     left(e) {
-      console.log("left");
-
       this.sliderIndex--;
       console.log("this.sliderIndex :>> ", this.sliderIndex);
       let tlLeft = gsap.timeline();
@@ -128,6 +132,7 @@ export default {
   justify-content: center;
   align-items: center;
   overflow: hidden;
+  border-radius: .75rem;
 }
 
 .preview-selection {
@@ -196,7 +201,7 @@ export default {
   }
 
   .preview .preview-selection > div.active {
-    border: solid 3px #e7833b;
+    outline: solid 3px #e7833b;
   }
 
   .preview .preview-selection > div.active img {
