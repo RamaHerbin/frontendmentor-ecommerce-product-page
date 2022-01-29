@@ -1,5 +1,5 @@
 <template>
-  <header class="header">
+  <header @clicked="onClickChild" class="header">
     <Menu ref="modalMenu" />
     <div class="wrapper">
       <div class="left">
@@ -18,7 +18,7 @@
         <div class="cart">
           <div class="cart-wrapper" @click="cartModalHandler">
             <img id="cartIcon" src="../assets/icon-cart.svg" alt="Cart icon" />
-            <div class="nb-cartItem">3</div>
+            <div class="nb-cartItem">{{ cartCount }}</div>
           </div>
           <CartModal ref="modalCart" />
         </div>
@@ -39,8 +39,13 @@ export default {
     CartModal,
     Menu,
   },
+  props: ['cartCount'],
   mounted: () => {
     console.log(document.querySelectorAll(".wrapper > div"));
+  },
+  created: function() {
+    console.log('cartCount :>> ', this.cartCount);
+
   },
   methods: {
     cartModalHandler() {
@@ -50,6 +55,9 @@ export default {
       console.log("this.$refs.modalMenu.show :>> ", this.$refs.modalMenu.show);
       this.$refs.modalMenu.show ? this.$refs.modalMenu.closeModal() : this.$refs.modalMenu.openModal();
     },
+    onClickChild (value) {
+          console.log(value) // someValue
+      }
   },
 };
 </script>

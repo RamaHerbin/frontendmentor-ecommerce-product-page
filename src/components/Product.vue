@@ -2,7 +2,7 @@
   <main class="product">
     <div class="wrapper">
       <ProductImages/>
-      <ProductDetails/>
+      <ProductDetails @clicked="onClickChild"></ProductDetails>
     </div>
   </main>
 </template>
@@ -18,13 +18,18 @@ export default {
     ProductImages,
   },
   mounted: () => {},
+  methods: {
+      onClickChild (value) {
+          console.log(value) // someValue
+          this.$emit('dataToApp', value);
+      }
+  }
 };
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 @media only screen and (min-width: 750px) {
-
   .product {
     margin-top: 4rem;
   }
@@ -36,6 +41,7 @@ export default {
     max-width: 1000px;
     margin: 0 auto;
   }
-
 }
+
+
 </style>
